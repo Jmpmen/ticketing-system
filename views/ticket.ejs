@@ -1,0 +1,98 @@
+<%- include('partials/header') -%>
+<div class="container">
+  <div class="row justify-content-center mt-5">
+    <div class="col-6">
+
+      <!-- Subject -->
+      <h2>Subject: <%= ticket.subject %></h2>
+
+      <!-- This will send a PUT request on change to update the severity and adds a comment -->
+      <form action="/ticket/updateSeverity/<%= ticket.id %>?_method=PUT" method="POST">
+        <label for="severity" class="form-label">Severity:</label>
+        <select name="severity" id="severity" class="form-select mb-3" onchange="this.form.submit()">
+          <option value="<%= ticket.severity%>"><%= ticket.severity%></option>
+          <% for(let i=0; i<severity.length; i++) {%>
+            <% if(severity[i] !== ticket.severity) {%>
+              <option value="<%= severity[i]%>"><%= severity[i]%></option>
+            <% }
+          } %>
+        </select>
+      </form>
+
+      <!-- This will send a PUT request on change to update the status and adds a comment -->
+      <form action="/ticket/updateStatus/<%= ticket.id %>?_method=PUT" method="POST">
+        <label for="status" class="form-label">Status:</label>
+        <select name="status" id="status" class="form-select mb-3" onchange="this.form.submit()">
+          <option value="<%= ticket.status%>"><%= ticket.status%></option>
+          <% for(let i=0; i<status.length; i++) {%>
+            <% if(status[i] !== ticket.status) {%>
+              <option value="<%= status[i]%>"><%= status[i]%></option>
+            <% }
+          } %>
+        </select>
+      </form>
+
+      <!-- This will send a PUT request on change to update the assignee and adds a comment -->
+      <form action="/ticket/updateAssignee/<%= ticket.id %>?_method=PUT" method="POST">
+        <label for="assignedTo" class="form-label">Assigned To:</label>
+        <select name="assignedTo" id="assignedTo" class="form-select mb-5" onchange="this.form.submit()">
+          <option value="<%= ticket.assignedTo%>"><%= ticket.assignedTo%></option>
+          <% for(let i=0; i<Users.length; i++) {%>
+            <% if(Users[i].email !== ticket.assignedTo) {%>
+              <option value="<%= Users[i].email%>"><%= Users[i].email%></option>
+            <% }
+          } %>
+        </select>
+      </form>
+
+      <!-- Ticket Image (Optional) -->
+      <img class="img-fluid" src="<%= ticket.image%>" width="50%" height="50%" />
+
+      <!-- Delete button only appears to the ticket creator -->
+      <div class="row">
+        <%if(ticket.user == user.id){ %>
+        <form action="/ticket/deleteTicket/<%= ticket.id %>?_method=DELETE" method="POST" class="col-3">
+          <button class="btn btn-primary fa fa-trash mb-3" type="submit"></button>
+        </form>
+        <%}%>
+      </div>
+
+      <!-- Description -->
+      <p>Description: <%= ticket.description %></p>
+
+      <!-- Add a Comment Section -->
+      <div class="mt-5">
+        <form action="/ticket/commentTicket/<%= ticket.id %>" method="POST">
+          <div class="mb-3">
+            <label for="comment" class="form-label">Add a Comment:</label>
+            <textarea class="form-control" id="comment" name="comment"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+
+      <!-- Comment Section -->
+      <div class="row justify-content-center mt-5" id="comments">
+        <ul class="row list-unstyled">
+          <% for(let i=0; i<comments.length; i++) {%>
+            <li class="mb-3 border p-3">
+              <div class="small">
+                <span>From: <%= user.userName%></span>
+                <span>Date: <%= comments[i].createdAt%></span>
+              </div>
+              <p class="p-2"><%= comments[i].comment%></p>
+            </li>
+          <% } %>
+        </ul>
+      </div>
+
+      <!-- Return Buttons -->
+      <div class="col-6">
+        <a class="btn btn-primary" href="/">Return to Profile</a>
+        <a class="btn btn-primary" href="/ticket">Return to Feed</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('partials/footer') -%>
