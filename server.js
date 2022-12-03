@@ -57,7 +57,6 @@ app.use(flash());
 app.use("/", mainRoutes);
 app.use("/ticket", ticketRoutes);
 
-
 //Server Running
 app.listen(process.env.PORT, () => {
   console.log(`Server is running.`);

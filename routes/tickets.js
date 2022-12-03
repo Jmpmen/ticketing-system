@@ -8,7 +8,7 @@ const { ensureAuth } = require("../middleware/auth");
 //Since linked from server js treat each path as:
 //ticket/:id, post/createTicket, post/likeTicket/:id, post/deleteTicket/:id
 router.get("/:id", ensureAuth, ticketsController.getTicket);
-router.get("/", ensureAuth, ticketsController.getFeed);
+router.get("/", ensureAuth, ticketsController.getDashboard);
 
 //Enables user to create ticket w/ cloudinary for media uploads
 router.post("/createTicket", upload.single("file"), ticketsController.createTicket);

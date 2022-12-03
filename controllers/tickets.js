@@ -18,10 +18,23 @@ module.exports = {
       console.log(err);
     }
   },
-  getFeed: async (req, res) => {
+  getUser: async (req, res) => { 
+    console.log(req.user)
+    try {
+      //Since we have a session each request (req) contains the logged-in users info: req.user
+      //console.log(req.user) to see everything
+      //Grabbing just the posts of the logged-in user
+      const tickets = await Ticket.find({ user: req.params.id }).sort({ severity: "asc" }).lean();
+      //Sending post data from mongodb and user data to ejs template
+      res.render("assigned.ejs", { tickets: tickets, user: req.user });
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  getDashboard: async (req, res) => {
     try {
       const tickets = await Ticket.find().sort({ severity: "asc" }).lean();
-      res.render("feed.ejs", { tickets: tickets });
+      res.render("dashboard.ejs", { tickets: tickets, user:req.user });
     } catch (err) {
       console.log(err);
     }
@@ -58,8 +71,6 @@ module.exports = {
           status: req.body.status,
           user: req.user.id,
         });
-        console.log("Ticket has been added!");
-        res.redirect("/profile");
       }else{
         await Ticket.create({
           subject: req.body.subject,
@@ -69,9 +80,9 @@ module.exports = {
           status: req.body.status,
           user: req.user.id,
         });
-        console.log("Ticket has been added!");
-        res.redirect("/profile");
       }
+      console.log("Ticket has been added!");
+      res.redirect("/ticket");
       //media is stored on cloudainary - the above request responds with url to media and the media id that you will need when deleting content 
     } catch (err) {
       console.log(err);
