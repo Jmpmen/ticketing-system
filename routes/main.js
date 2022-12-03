@@ -6,8 +6,10 @@ const ticketsController = require("../controllers/tickets");
 const { ensureAuth } = require("../middleware/auth");
 
 //Main Routes 
-router.get("/", ensureAuth, ticketsController.getIndex);
+router.get("/", ensureAuth, ticketsController.getDashboard);
 router.get("/user/:id", ensureAuth, ticketsController.getUser);
+router.get("/newTicket", ensureAuth, ticketsController.getNewTicket);
+
 // router.get("/auth", homeController.getAuth);
 
 //Routes for user login/signup

@@ -4,7 +4,7 @@ const Comment = require("../models/Comment");
 const User = require("../models/User");
 
 module.exports = {
-  getIndex: async (req, res) => { 
+  getNewTicket: async (req, res) => { 
     console.log(req.user)
     try {
       //Since we have a session each request (req) contains the logged-in users info: req.user
@@ -13,7 +13,7 @@ module.exports = {
       const tickets = await Ticket.find({ user: req.user.id });
       const Users = await User.find().lean();
       //Sending post data from mongodb and user data to ejs template
-      res.render("profile.ejs", { tickets: tickets, user: req.user, Users: Users });
+      res.render("newTicket.ejs", { tickets: tickets, user: req.user, Users: Users });
     } catch (err) {
       console.log(err);
     }
