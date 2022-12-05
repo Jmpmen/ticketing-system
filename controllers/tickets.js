@@ -183,6 +183,7 @@ module.exports = {
       }
       // Delete ticket from db
       await Ticket.remove({ _id: req.params.id });
+      await Comment.remove({ ticket: req.params.id });
       console.log("Deleted Ticket");
       res.redirect("/");
     } catch (err) {
