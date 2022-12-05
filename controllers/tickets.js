@@ -24,7 +24,7 @@ module.exports = {
       //Since we have a session each request (req) contains the logged-in users info: req.user
       //console.log(req.user) to see everything
       //Grabbing just the posts of the logged-in user
-      const tickets = await Ticket.find({ user: req.params.id }).sort({ severity: "asc" }).lean();
+      const tickets = await Ticket.find({ user: req.params.id }).sort({ createdAt: "desc"}).lean();
       //Sending post data from mongodb and user data to ejs template
       res.render("assigned.ejs", { tickets: tickets, user: req.user });
     } catch (err) {
@@ -33,7 +33,7 @@ module.exports = {
   },
   getDashboard: async (req, res) => {
     try {
-      const tickets = await Ticket.find().sort({ severity: "asc" }).lean();
+      const tickets = await Ticket.find({status: {$ne : "Resolved"}}).sort({ severity: "asc", createdAt: "desc"}).lean();
       res.render("dashboard.ejs", { tickets: tickets, user:req.user });
     } catch (err) {
       console.log(err);
@@ -49,7 +49,7 @@ module.exports = {
       const ticket = await Ticket.findById(req.params.id);
       const comments = await Comment.find({ticket: req.params.id}).sort({ createdAt: "desc" }).lean();
       const severity = ['P0','P1','P2','P3']
-      const status = ['Open', 'Closed', 'Resolved']
+      const status = ['Open', 'Pending', 'Resolved']
       res.render("ticket.ejs", { Users: Users, ticket: ticket, user: req.user, comments: comments, severity: severity, status: status});
     } catch (err) {
       console.log(err);
@@ -82,7 +82,7 @@ module.exports = {
         });
       }
       console.log("Ticket has been added!");
-      res.redirect("/ticket");
+      res.redirect("/");
       //media is stored on cloudainary - the above request responds with url to media and the media id that you will need when deleting content 
     } catch (err) {
       console.log(err);
@@ -184,9 +184,9 @@ module.exports = {
       // Delete ticket from db
       await Ticket.remove({ _id: req.params.id });
       console.log("Deleted Ticket");
-      res.redirect("/profile");
+      res.redirect("/");
     } catch (err) {
-      res.redirect("/profile");
+      res.redirect("/");
     }
   },
 };
