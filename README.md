@@ -38,7 +38,7 @@ The backend follows the MVC architecture. MongoDB was used for the database, Nod
 # Run
 
 `npm start`
-```
+
 
 ## Optimizations
 
