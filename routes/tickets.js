@@ -8,7 +8,6 @@ const { ensureAuth } = require("../middleware/auth");
 //Since linked from server js treat each path as:
 //ticket/:id, post/createTicket, post/likeTicket/:id, post/deleteTicket/:id
 router.get("/:id", ensureAuth, ticketsController.getTicket);
-// router.get("/", ensureAuth, ticketsController.getDashboard);
 
 
 //Enables user to create ticket w/ cloudinary for media uploads
@@ -17,7 +16,6 @@ router.post("/commentTicket/:id", ticketsController.commentTicket);
 
 
 //Enables user to like ticket. In controller, uses POST model to update likes by 1
-// router.put("/likeTicket/:id", ticketsController.likeTicket);
 router.put("/updateSeverity/:id", ticketsController.updateSeverity);
 router.put("/updateStatus/:id", ticketsController.updateStatus);
 router.put("/updateAssignee/:id", ticketsController.updateAssignee);
