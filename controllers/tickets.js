@@ -129,6 +129,7 @@ module.exports = {
         comment: `${ticket.severity} -> ${req.body.severity}`,
         user: req.user.id,
         ticket: req.params.id,
+        userName: req.user.userName,
       });
       console.log("Updated Severity");
       res.redirect(`/ticket/${req.params.id}#comments`);
@@ -148,6 +149,7 @@ module.exports = {
         comment: `Marked as ${req.body.status}`,
         user: req.user.id,
         ticket: req.params.id,
+        userName: req.user.userName,
       });
       console.log("Updated Status");
       res.redirect(`/ticket/${req.params.id}#comments`);
@@ -167,6 +169,7 @@ module.exports = {
         comment: `Assigned To: ${req.body.assignedTo}`,
         user: req.user.id,
         ticket: req.params.id,
+        userName: req.user.userName,
       });
       console.log("Updated Assignee");
       res.redirect(`/ticket/${req.params.id}#comments`);
