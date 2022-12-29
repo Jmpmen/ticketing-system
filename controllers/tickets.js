@@ -94,6 +94,7 @@ module.exports = {
         comment: req.body.comment,
         user: req.user.id,
         ticket: req.params.id,
+        userName: req.user.userName,
       });
       console.log("Comment has been added!");
       res.redirect("/ticket/"+req.params.id);
