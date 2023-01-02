@@ -42,6 +42,7 @@ app.use(
     secret: "keyboard cat",
     resave: false,
     saveUninitialized: false,
+    cookie: { maxAge: 1 * 60 * 60 * 1000 }, // One hour in milliseconds
     store: new MongoStore({ mongooseConnection: mongoose.connection }),
   })
 );
