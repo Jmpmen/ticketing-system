@@ -14,7 +14,7 @@ This is a 100hour project based on what we do as NOC engineers dealing with big 
 
 **Tech used:** MongoDB, Express, EJS, NodeJS, HTML, CSS, JavaScript, Tailwind, Passport, Cloudinary
 
-This project uses React for interactive and dynamic user interface.
+This project uses EJS for frontend.
 
 The backend follows the MVC architecture. MongoDB was used for the database, Node and Express for the backend server, and Passport for authentication.
 
@@ -27,7 +27,7 @@ The backend follows the MVC architecture. MongoDB was used for the database, Nod
 # Things to add
 
 - Create a `.env` file in config folder and add the following as `key = value`
-  - PORT = 2121 (can be any port example: 3000)
+  - PORT = 3000 (can be any port example: 5000)
   - DB_STRING = `your database URI`
   - CLOUD_NAME = `your cloudinary cloud name`
   - API_KEY = `your cloudinary api key`
@@ -50,4 +50,4 @@ Tailwind is a CSS framework similar to Bootstrap, however Tailwind provides more
 
 Passport allows developers to facilitate the login process. It is flexible, and easy to integrate into your ExpressJS code.
 
-This project alsp helped me have a deeper understanding of CRUD and database management.
+This project also helped me have a deeper understanding of CRUD and database management.
